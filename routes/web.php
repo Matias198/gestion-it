@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ComponentesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EquipoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +24,9 @@ Route::get('/', [AuthController::class, 'index'])->name('auth.login');
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class); 
     Route::resource('roles', RoleController::class); 
+    Route::resource('equipos', EquipoController::class);
+    Route::resource('categorias', CategoriaController::class);
+    Route::resource('componentes', ComponentesController::class);
 })
 ;
 Route::get('auth/login', [AuthController::class, 'index'])->name('auth.login');
