@@ -25,11 +25,9 @@ VALUES (1, 'Super Usuario', '["ADMINISTRAR_USUARIOS", "ADMINISTRAR_ROLES", "ADMI
 <code> INTO users (id, name, email, password, role_id, created_at, updated_at) VALUES (1, 'Administrador', 'clave@12345678', '$2a$06$tVkuNV2RpD0eXZqWTLha9eVFzcXehdWbHpUVwPBeuHe8jnsmXUm.S', 1, '2023-06-19 01:21:00', '2023-06-19 01:58:38');</code>
 
 ### Node.js, PHP y Composer instalado en el sistema:
-
-### Ejecutar los siguientes comandos:
-
-# npm run dev
-# php artisan serve
+#### Ejecutar los siguientes comandos:
+- npm run dev
+- php artisan serve
 
 ### Dirigirse a la ruta localhost:8000/auth/login para iniciar sesion con los datos de superusuario
 
