@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login.index');
-});
+Route::get('/', [AuthController::class, 'index'])->name('auth.login');
 
-Route::resource('users', UserController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class); 
+    Route::resource('roles', RoleController::class); 
+})
+;
 Route::get('auth/login', [AuthController::class, 'index'])->name('auth.login');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login.submit');
+Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('auth/register', [AuthController::class, 'showRegistrationForm'])->name('auth.register');
+Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register.submit');
+
