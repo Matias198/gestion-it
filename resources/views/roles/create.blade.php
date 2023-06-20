@@ -69,7 +69,7 @@
                 <input type="hidden" id="permissions" name="permissions" value="" style="color:black">
             </form>
         </div>
-    </div>
+    </div> 
     <script>
         // Get the permissions element 
         const permisos = document.getElementById('permissions');

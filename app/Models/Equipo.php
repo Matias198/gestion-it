@@ -11,6 +11,11 @@ class Equipo extends Model
 
     public function categoria()
     {
-        return $this->belongsTo(Categorias::class, 'categoria_id');
+        return $this->belongsTo(Categorias::class);
+    }
+
+    public function componentes()
+    {
+        return $this->belongsToMany(Componentes::class, 'equipo_componente');
     }
 }

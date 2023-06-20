@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Componentes extends Model
 {
     use HasFactory;
+
+    public function equipos()
+    {
+        return $this->belongsToMany(Equipo::class, 'equipo_componente');
+    }
 }
