@@ -36,7 +36,7 @@
                             </path>
                         </svg>
                     </button>
-                    <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
+                    <a href="{{ route('layouts.welcome') }}" class="flex ml-2 md:mr-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">GestiónIT</span>
@@ -88,6 +88,7 @@
         aria-label="sidebar" style="box-shadow: 0 0 15px 5px rgba(0,0,0, 0.5);">
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
+                @if(session('user')->hasRole((array) ['Administrador','Usuarios del Área de Sistemas'])) 
                 <li>
                     <a href="{{ route('users.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -101,6 +102,8 @@
                         <span class="ml-3">Usuarios</span>
                     </a>
                 </li>
+                @endif
+                @if(session('user')->hasRole((array) ['Administrador']))
                 <li>
                     <a href="{{ route('roles.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -114,8 +117,9 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Roles y Seguridad</span>
                     </a>
                 </li>
+                @endif
                 <li>
-                    <a href="{{ route('solicitudes.index') }}"
+                    <a href="{{ route('solicitud.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -128,22 +132,24 @@
                         <span
                             class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                     </a>
-                </li>
-                <a href="{{ route('equipos.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25">
-                        </path>
-                    </svg>
-
-                    <span class="flex-1 ml-3 whitespace-nowrap">Equipos</span>
-                </a>
+                </li> 
                 <li>
-                </li>
-                <a href="{{ route('categorias.index') }}"
+                    <a href="{{ route('equipos.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25">
+                            </path>
+                        </svg>
+
+                        <span class="flex-1 ml-3 whitespace-nowrap">Equipos</span>
+                    </a>
+                </li> 
+                @if(session('user')->hasRole((array) ['Administrador','Usuarios del Área de Sistemas'])) 
+                <li>
+                    <a href="{{ route('categorias.index') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -154,10 +160,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
-                </a>
-                <li>
+                    </a>
                 </li>
-                <a href="{{ route('componentes.index') }}"
+                <li>
+                    <a href="{{ route('componentes.index') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -167,8 +173,9 @@
                         </path>
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Componentes</span>
-                </a>
-                <li>
+                    </a>
+                </li>
+                @endif 
             </ul>
         </div>
     </aside>

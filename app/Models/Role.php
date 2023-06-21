@@ -12,12 +12,16 @@ class Role extends Model
 
     protected $fillable = [
         'name',
-        'permisos',
     ];
 
     // Relación con otros modelos (ejemplo)
     public function users()
-{
-    return $this->hasMany(User::class);
-}
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function permisos()
+    {
+        return $this->belongsToMany(Permisos::class, 'rol_permiso', 'rol_id', 'permiso_id');
+    }
 }

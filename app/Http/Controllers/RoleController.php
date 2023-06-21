@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permisos;
 use Illuminate\Http\Request;
 use App\Models\Role;
 
@@ -10,12 +11,14 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all(); // Obtener todos los roles desde la base de datos
-        return view('roles.index', ['roles' => $roles]); // Retornar una vista con los roles
+        $permisos = Permisos::all(); // Obtener todos los permisos desde la base de datos
+        return view('roles.index', compact('roles', 'permisos')); // Pasar los roles y permisos a la vista
     }
 
     public function create()
     {
-        return view('roles.create');
+        $permisos = Permisos::all(); // Obtener todos los permisos desde la base de datos
+        return view('roles.create', compact('permisos'));
     }
 
     public function store(Request $request)
@@ -26,15 +29,21 @@ class RoleController extends Controller
         $perms = explode(',', $permissions);
         // Elimina el último elemento del array (una coma)
         array_pop($perms);
-        $permissions = json_encode($perms);
+        // Con esa lista de IDs buscar los permisos
+        $permissions = Permisos::find($perms);
 
 
         // Guarda el rol en la base de datos junto con los permisos
         $role = Role::create([
-            'name' => $request->input('name'),
-            'permisos' => $permissions,
+            'name' => $request->input('name'), 
         ]);
         $role->save();
+        
+        // Eliminar las relaciones antiguas
+        $role->permisos()->detach();
+
+        // Agregar las relaciones nuevas
+        $role->permisos()->attach($permissions);
 
         // Redirige a la página deseada después de crear el rol
         return redirect()->route('roles.index');
@@ -43,13 +52,11 @@ class RoleController extends Controller
     public function edit($id)
     {
         $rol = Role::findOrFail($id);
+        $perms = Permisos::all(); 
+        // Obtener los permisos asociados al rol
+        $permisos = $rol->permisos; 
 
-        // Decodificar el campo de permisos JSON en un objeto o matriz de PHP
-        $permisos = json_decode($rol->permisos);
-        // Transformar permisos a un array de permisos
-        $permisos = (array) $permisos;
-
-        return view('roles.editar', compact('rol', 'permisos'));
+        return view('roles.editar', compact('rol', 'permisos', 'perms'));
     }
 
     public function update(Request $request, $id)
@@ -58,20 +65,25 @@ class RoleController extends Controller
 
         // Validar los datos enviados en el formulario
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'permissions' => '',
+            'name' => 'required|string|max:255'
         ]);
 
-        // Convertir los permisos en un array de permisos
-        $permisos = explode(',', $validatedData['permissions']); 
-
-        // Convertir el array de permisos en un JSON
-        $permissions = json_encode($permisos);
+        // Obtén los permisos seleccionados del campo oculto
+        $permissions = $request->input('permissions');
+        // convierte los permissions en un json de elementos separados por comas
+        $perms = explode(',', $permissions); 
+        // Con esa lista de IDs buscar los permisos
+        $permissions = Permisos::find($perms);
 
         // Actualizar los campos del rol
-        $role->name = $validatedData['name'];
-        $role->permisos = $permissions;
+        $role->name = $validatedData['name']; 
         $role->save();
+
+        // Eliminar las relaciones antiguas
+        $role->permisos()->detach();
+
+        // Agregar las relaciones nuevas
+        $role->permisos()->attach($permissions);
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
         return redirect()->route('roles.index');

@@ -18,4 +18,10 @@ class Equipo extends Model
     {
         return $this->belongsToMany(Componentes::class, 'equipo_componente');
     }
+
+    public function solicitudes()
+    {
+        return $this->belongsToMany(Solicitud::class, 'equipo_solicitud');
+    }
+    
 }

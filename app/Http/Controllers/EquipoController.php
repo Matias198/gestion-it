@@ -112,7 +112,7 @@ class EquipoController extends Controller
         // Eliminar el ultimo elemento del array (el ultimo elemento es un string vacio)
         array_pop($comps); 
         // Con esa lista de IDs buscar los componentes
-        $componentes = Componentes::find($comps);
+        $componentes = Componentes::find($comps); 
 
 
         // Crear el equipo

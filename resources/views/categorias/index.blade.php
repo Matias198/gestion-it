@@ -18,7 +18,9 @@
                                 <th scope="col" class="px-6 py-3">ID</th>
                                 <th scope="col" class="px-6 py-3">Nombre</th>
                                 <th scope="col" class="px-6 py-3">Tipo</th>
-                                <th scope="col" class="px-6 py-3">Acciones</th>
+                                @if (session('user')->hasRole((array) ['Administrador']))
+                                    <th scope="col" class="px-6 py-3">Acciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="abx acb">
@@ -28,33 +30,36 @@
                                         {{ $categoria->id }}</td>
                                     <td class="px-6 py-4">{{ $categoria->nombre }}</td>
                                     <td class="px-6 py-4">{{ $categoria->tipo }}</td>
-                                    <td class="py-4">
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            href="{{ route('categorias.edit', $categoria->id) }}">Editar</a>
-                                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            onclick="borrar({{ $categoria->id }})">Eliminar</button>
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
-                                            style="display:none">
-                                            <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button id="eliminar{{ $categoria->id }}" type="submit"
-                                                    class="hover:underline">Eliminar</button>
-                                            </form>
-                                        </a>
-
-                                    </td>
+                                    @if (session('user')->hasRole((array) ['Administrador']))
+                                        <td class="py-4">
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('categorias.edit', $categoria->id) }}">Editar</a>
+                                            <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                onclick="borrar({{ $categoria->id }})">Eliminar</button>
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
+                                                style="display:none">
+                                                <form action="{{ route('categorias.destroy', $categoria->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button id="eliminar{{ $categoria->id }}" type="submit"
+                                                        class="hover:underline">Eliminar</button>
+                                                </form>
+                                            </a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-3" style="display: flex; justify-content: center;">
-                        <button
-                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <a href="{{ route('categorias.create') }}">Crear categoria</a>
-                        </button>
-                    </div>
+                    @if (session('user')->hasRole((array) ['Administrador']))
+                        <div class="mt-3" style="display: flex; justify-content: center;">
+                            <button
+                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="{{ route('categorias.create') }}">Crear categoria</a>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -87,8 +92,10 @@
             filasCategorias.forEach(function(filaCategoria) {
                 const nombreCategoria = filaCategoria.querySelector('td:nth-child(2)').textContent
                     .toLowerCase();
+                const tipoCategoria = filaCategoria.querySelector('td:nth-child(3)').textContent
+                    .toLowerCase();
 
-                if (nombreCategoria.includes(filtro)) {
+                if (nombreCategoria.includes(filtro) || tipoCategoria.includes(filtro)) {
                     filaCategoria.style.display = 'table-row';
                 } else {
                     filaCategoria.style.display = 'none';

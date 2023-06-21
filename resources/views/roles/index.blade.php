@@ -15,42 +15,54 @@
                                 <th scope="col" class="px-6 py-3">ID</th>
                                 <th scope="col" class="px-6 py-3">Nombre</th>
                                 <th scope="col" class="px-6 py-3">Permisos</th>
-                                <th scope="col" class="px-6 py-3">Acciones</th>
+                                @if (session('user')->hasRole((array) ['Administrador']))
+                                    <th scope="col" class="px-6 py-3">Acciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="abx acb">
                             @foreach ($roles as $rol)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-b-slate-50">
-                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" style="max-width: 50px;">
+                                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        style="max-width: 50px;">
                                         {{ $rol->id }}</td>
-                                    <td class="px-6 py-4" style="max-width: 100px; word-wrap: break-word;">{{ $rol->name }}</td>
-                                    <td class="px-6 py-4" style="max-width: 200px; word-wrap: break-word;">{{ $rol->permisos }}</td>
-                                    <td class="px-6 py-4" style="max-width: 100px;">
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            href="{{ route('roles.edit', $rol->id) }}">Editar</a>
-                                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            onclick="borrar({{ $rol->id }})">Eliminar</button>
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500" style="display:none">
-                                            <form action="{{ route('roles.destroy', $rol->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button id="eliminar{{ $rol->id }}" type="submit"
-                                                    class="hover:underline">Eliminar</button>
-                                            </form>
-                                        </a>
-
+                                    <td class="px-6 py-4" style="max-width: 100px; word-wrap: break-word;">
+                                        {{ $rol->name }}</td>
+                                    <td class="px-6 py-4" style="max-width: 200px; word-wrap: break-word;">
+                                        @foreach ($rol->permisos as $permiso)
+                                            {{ $permiso->nombre }}<br>
+                                        @endforeach
                                     </td>
+                                    @if (session('user')->hasRole((array) ['Administrador']))
+                                        <td class="px-6 py-4" style="max-width: 100px;">
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('roles.edit', $rol->id) }}">Editar</a>
+                                            <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                onclick="borrar({{ $rol->id }})">Eliminar</button>
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
+                                                style="display:none">
+                                                <form action="{{ route('roles.destroy', $rol->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button id="eliminar{{ $rol->id }}" type="submit"
+                                                        class="hover:underline">Eliminar</button>
+                                                </form>
+                                            </a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-3" style="display: flex; justify-content: center;">
-                        <button
-                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <a href="{{ route('roles.create') }}">Crear Rol</a>
-                        </button>
-                    </div>
+                    @if (session('user')->hasRole((array) ['Administrador']))
+                        <div class="mt-3" style="display: flex; justify-content: center;">
+                            <button
+                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="{{ route('roles.create') }}">Crear Rol</a>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

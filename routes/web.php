@@ -3,10 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComponentesController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
-use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [AuthController::class, 'index'])->name('auth.login');
+Route::get('/welcome', [Controller::class, 'index'])->name('layouts.welcome');
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class); 
-    Route::resource('roles', RoleController::class);
-    Route::resource('solicitudes', SolicitudesController::class); 
+    Route::resource('roles', RoleController::class); 
     Route::resource('equipos', EquipoController::class);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('componentes', ComponentesController::class);
