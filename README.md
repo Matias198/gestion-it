@@ -8,7 +8,7 @@
 </p>
 
 ## Para iniciar el proyecto se debe tener en cuenta:
-### Una base de datos postgres que cumpla los siguientes paramtros del .env:
+### Crear un archivo .env con los siguientes parametros:
 
 - DB_CONNECTION=pgsql
 - DB_HOST=127.0.0.1
@@ -16,15 +16,29 @@
 - DB_DATABASE=diseñoweb
 - DB_USERNAME=admin
 - DB_PASSWORD=admin
+> Nota: se puede usar el archivo .env.example como ejemplo
+
+### Una base de datos postgres que cumpla los siguientes parametros anteriormente mencionados
+
+### Node.js, PHP y Composer instalado en el sistema:
+- npm install
+- composer install
+
+> **Nota:** verificar que en el archivo php.ini se encuentren descomentados los siguientes parametros:
+> **extension=pdo_pgsql**
+> **extension=pgsql**
+
+### Utilizar el siguiente comando en la consola:
+- php artisan migrate
+> **Nota:** la base de datos debe estar creada con anterioridad.
 
 ### Ejecutar la siguiente query en la base de datos:
 
 <code>INSERT INTO roles (id, name, permisos, created_at, updated_at)
 VALUES (1, 'Super Usuario', '["ADMINISTRAR_USUARIOS", "ADMINISTRAR_ROLES", "ADMINISTRAR_EQUIPOS", "ADMINISTRAR_SOLICITUDES", "GESTIONAR_SOLICITUDES", "SOLICITAR_EQUIPOS"]'::json, current_date, current_date);</code>
 
-<code> INTO users (id, name, email, password, role_id, created_at, updated_at) VALUES (1, 'Administrador', 'clave@12345678', '$2a$06$tVkuNV2RpD0eXZqWTLha9eVFzcXehdWbHpUVwPBeuHe8jnsmXUm.S', 1, '2023-06-19 01:21:00', '2023-06-19 01:58:38');</code>
+<code>INSERT INTO users (id, name, email, password, role_id, created_at, updated_at) VALUES (1, 'Administrador', 'clave@12345678', '$2a$06$tVkuNV2RpD0eXZqWTLha9eVFzcXehdWbHpUVwPBeuHe8jnsmXUm.S', 1, '2023-06-19 01:21:00', '2023-06-19 01:58:38');</code>
 
-### Node.js, PHP y Composer instalado en el sistema:
 #### Ejecutar los siguientes comandos:
 - npm run dev
 - php artisan serve
@@ -33,5 +47,3 @@ VALUES (1, 'Super Usuario', '["ADMINISTRAR_USUARIOS", "ADMINISTRAR_ROLES", "ADMI
 
 - correo: clave@12345678
 - clave: 12345678
-
-
