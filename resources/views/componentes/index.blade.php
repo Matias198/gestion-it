@@ -18,7 +18,9 @@
                                 <th scope="col" class="px-6 py-3">Nombre</th>
                                 <th scope="col" class="px-6 py-3">Valor</th>
                                 <th scope="col" class="px-6 py-3">Tipo</th>
-                                <th scope="col" class="px-6 py-3">Acciones</th>
+                                @if (session('user')->hasRole((array) ['Administrador']))
+                                    <th scope="col" class="px-6 py-3">Acciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="abx acb">
@@ -29,33 +31,36 @@
                                     <td class="px-6 py-4">{{ $componente->nombre }}</td>
                                     <td class="px-6 py-4">{{ $componente->valor }}</td>
                                     <td class="px-6 py-4">{{ $componente->tipo }}</td>
-                                    <td class="py-4">
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            href="{{ route('componentes.edit', $componente->id) }}">Editar</a>
-                                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            onclick="borrar({{ $componente->id }})">Eliminar</button>
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
-                                            style="display:none">
-                                            <form action="{{ route('componentes.destroy', $componente->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button id="eliminar{{ $componente->id }}" type="submit"
-                                                    class="hover:underline">Eliminar</button>
-                                            </form>
-                                        </a>
-
-                                    </td>
+                                    @if (session('user')->hasRole((array) ['Administrador']))
+                                        <td class="py-4">
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('componentes.edit', $componente->id) }}">Editar</a>
+                                            <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                onclick="borrar({{ $componente->id }})">Eliminar</button>
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
+                                                style="display:none">
+                                                <form action="{{ route('componentes.destroy', $componente->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button id="eliminar{{ $componente->id }}" type="submit"
+                                                        class="hover:underline">Eliminar</button>
+                                                </form>
+                                            </a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-3" style="display: flex; justify-content: center;">
-                        <button
-                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <a href="{{ route('componentes.create') }}">Crear componente</a>
-                        </button>
-                    </div>
+                    @if (session('user')->hasRole((array) ['Administrador']))
+                        <div class="mt-3" style="display: flex; justify-content: center;">
+                            <button
+                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="{{ route('componentes.create') }}">Crear componente</a>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -82,14 +87,19 @@
 
         filtroNombreInput.addEventListener('input', function() {
             const filtro = filtroNombreInput.value.toLowerCase();
+            const filasComponentes = document.querySelectorAll('tbody tr');
 
-            const filasComponentes = document.querySelectorAll('.abx.acb tr');
 
             filasComponentes.forEach(function(filaComponente) {
                 const nombreComponente = filaComponente.querySelector('td:nth-child(2)').textContent
                     .toLowerCase();
+                const valorComponente = filaComponente.querySelector('td:nth-child(3)').textContent
+                    .toLowerCase();
+                const tipoComponente = filaComponente.querySelector('td:nth-child(4)').textContent
+                    .toLowerCase();
 
-                if (nombreComponente.includes(filtro)) {
+                if (nombreComponente.includes(filtro) || valorComponente.includes(filtro) || tipoComponente
+                    .includes(filtro)) {
                     filaComponente.style.display = 'table-row';
                 } else {
                     filaComponente.style.display = 'none';

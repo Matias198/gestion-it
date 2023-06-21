@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->unsignedBigInteger('categoria_id')->nullable(); 
+            $table->unsignedBigInteger('categoria_id')->nullable();  
+            $table->string('estado')->nullable();
             $table->string('motivo_baja')->nullable();
             $table->date('fecha_baja')->nullable(); 
             $table->timestamps();

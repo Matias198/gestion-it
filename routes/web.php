@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComponentesController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,13 +22,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [AuthController::class, 'index'])->name('auth.login');
+Route::get('/welcome', [Controller::class, 'index'])->name('layouts.welcome');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('users', UserController::class); 
-    Route::resource('roles', RoleController::class); 
-    Route::resource('equipos', EquipoController::class);
-    Route::resource('categorias', CategoriaController::class);
-    Route::resource('componentes', ComponentesController::class);
+    Route::resource('users', UserController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('roles', RoleController::class)->middleware('role:Administrador');
+    Route::resource('equipos', EquipoController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
+    Route::resource('categorias', CategoriaController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('componentes', ComponentesController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('solicitud', SolicitudController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
 })
 ;
 Route::get('auth/login', [AuthController::class, 'index'])->name('auth.login');

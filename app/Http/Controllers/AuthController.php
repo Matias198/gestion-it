@@ -11,6 +11,9 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if (session('user')) {
+            return redirect()->route('layouts.welcome');
+        }
         return view('login.index');
     }
 
@@ -24,7 +27,7 @@ class AuthController extends Controller
             // Guardar los datos del usuario en la variable de sesión
             session(['user' => $user]);
 
-            return redirect()->intended('/users'); // Redirigir a la página de inicio después del inicio de sesión exitoso
+            return redirect()->intended('/'); // Redirigir a la página de inicio después del inicio de sesión exitoso
         }
 
         // Las credenciales de inicio de sesión son inválidas
@@ -61,6 +64,7 @@ class AuthController extends Controller
         
         // Guardar el usuario en la base de datos
         $user->save();
+        
         // Guardar los datos del usuario en la variable de sesión
         session(['user' => $user]);
 
@@ -68,7 +72,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirigir al usuario a la página de inicio o a donde desees después del registro exitoso
-        return redirect()->route('users.index');
+        return redirect()->route('/');
     }
 
     public function logout()

@@ -21,8 +21,8 @@
                                 <th scope="col" class="px-6 py-3"style="max-width: 100px;">Tipo</th>
                                 <th scope="col" class="px-6 py-3">Componentes</th>
                                 <!--<th scope="col" class="px-6 py-3">Motivo Baja</th>
-                                        <th scope="col" class="px-6 py-3">Fecha Baja</th>-->
-                                <th scope="col" class="px-6 py-3" style="max-width: 100px;">Acciones</th>
+                                                <th scope="col" class="px-6 py-3">Fecha Baja</th>--> 
+                                <th scope="col" class="px-6 py-3" style="max-width: 100px;">Acciones</th> 
                             </tr>
                         </thead>
                         <tbody class="abx acb">
@@ -41,34 +41,43 @@
                                         @endforeach
                                     </td>
                                     <!--<td class="px-6 py-4">{{ $equipo->motivo_baja }}</td>
-                                            <td class="px-6 py-4">{{ $equipo->fecha_baja }}</td>-->
-                                    <td class="px-6 py-4" style="max-width: 200px;">
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            href="{{ route('equipos.edit', $equipo->id) }}">Editar</a>
-                                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                            onclick="borrar({{ $equipo->id }})">Eliminar</button>
-                                        <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
-                                            style="display:none">
-                                            <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button id="eliminar{{ $equipo->id }}" type="submit"
-                                                    class="hover:underline">Eliminar</button>
-                                            </form>
-                                        </a>
-
-                                    </td>
+                                                    <td class="px-6 py-4">{{ $equipo->fecha_baja }}</td>-->
+                                    @if (session('user')->hasRole((array) ['Administrador']))
+                                        <td class="px-6 py-4" style="max-width: 200px;">
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('equipos.edit', $equipo->id) }}">Editar</a>
+                                            <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                onclick="borrar({{ $equipo->id }})">Eliminar</button>
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
+                                                style="display:none">
+                                                <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button id="eliminar{{ $equipo->id }}" type="submit"
+                                                        class="hover:underline">Eliminar</button>
+                                                </form>
+                                            </a>
+                                        </td>
+                                    @endif
+                                    @if (session('user')->hasRole((array) ['Usuario Comun']))
+                                        <td class="px-6 py-4" style="max-width: 200px;">
+                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('solicitud.create', $equipo->id) }}">Solicitar</a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-3" style="display: flex; justify-content: center;">
-                        <button
-                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <a href="{{ route('equipos.create') }}">Crear equipo</a>
-                        </button>
-                    </div>
+                    @if (session('user')->hasRole((array) ['Administrador']))
+                        <div class="mt-3" style="display: flex; justify-content: center;">
+                            <button
+                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="{{ route('equipos.create') }}">Crear equipo</a>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -90,7 +99,7 @@
                 }
             });
         }
-        
+
         const filtroNombreInput = document.getElementById('filtro-nombre');
 
         filtroNombreInput.addEventListener('input', function() {
@@ -100,8 +109,15 @@
             filas.forEach(function(filaEquipo) {
                 const nombreEquipo = filaEquipo.querySelector('td:nth-child(2)').textContent
                     .toLowerCase();
+                const descEquipo = filaEquipo.querySelector('td:nth-child(3)').textContent
+                    .toLowerCase();
+                const categoriaEquipo = filaEquipo.querySelector('td:nth-child(4)').textContent
+                    .toLowerCase();
+                const tipoEquipo = filaEquipo.querySelector('td:nth-child(5)').textContent
+                    .toLowerCase();
 
-                if (nombreEquipo.includes(filtro)) {
+                if (nombreEquipo.includes(filtro) || descEquipo.includes(filtro) || categoriaEquipo
+                    .includes(filtro) || tipoEquipo.includes(filtro)) {
                     filaEquipo.style.display = 'table-row';
                 } else {
                     filaEquipo.style.display = 'none';
