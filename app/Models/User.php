@@ -58,7 +58,7 @@ class User extends Authenticatable
         //Por cada rol en $role
         foreach ($role as $r) {
             // Si el usuario tiene el rol de Administrador 
-            if ($this->role->name == 'Administrador') {
+            if ($this->role->name == 'Administrador' && $r == 'Administrador') {
                 return true;
             }
 
