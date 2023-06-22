@@ -48,8 +48,7 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                    src="{{ asset('assets/img/perfil.jpg') }}"
+                                <img class="w-8 h-8 rounded-full" src="{{ asset('assets/img/perfil.jpg') }}"
                                     alt="user photo">
                             </button>
                         </div>
@@ -130,14 +129,10 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Solicitudes</span>
                         @if (session('user')->hasRole((array) ['Usuario Comun']))
                             <span
-                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ 
-                                App\Models\Solicitud::all()->where('user_id', auth()->user()->id)->count()
-                                }}</span>
+                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ App\Models\Solicitud::all()->where('user_id', auth()->user()->id)->count() }}</span>
                         @elseif(session('user')->hasRole((array) ['Administrador', 'Usuarios del Área de Sistemas']))
                             <span
-                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ 
-                                App\Models\Solicitud::all()->where('estado', 'Pendiente')->count() 
-                                }}</span>
+                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ App\Models\Solicitud::all()->where('estado', 'Pendiente')->count() }}</span>
                         @endif
                     </a>
                 </li>
@@ -187,7 +182,9 @@
             </ul>
         </div>
     </aside>
-    <div class="relative sm:ml-64 p-5">
+    <div class="relative sm:ml-64 p-5" style="box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
+    -webkit-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
+    -moz-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset; height: 100vh;">
         @yield('content')
     </div>
 
