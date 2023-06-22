@@ -114,9 +114,13 @@
                             <td class="px-6 py-4" style="word-wrap: break-word">
                                 <label for="default-checkbox"
                                     class="text-sm font-medium text-gray-900 dark:text-gray-300">{{ $equipo->nombre }}:
-                                    @foreach ($equipo->componentes as $componente)
-                                        {{ $componente->nombre }}: {{ $componente->valor }}.
-                                    @endforeach
+                                    @if (count($equipo->componentes) > 0)
+                                        @foreach ($equipo->componentes as $componente)
+                                            {{ $componente->nombre }}: {{ $componente->valor }}.
+                                        @endforeach
+                                    @else
+                                        {{ $equipo->descripcion }}
+                                    @endif
                                 </label>
                             </td>
                         </tr>

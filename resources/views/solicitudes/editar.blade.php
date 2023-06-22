@@ -32,7 +32,7 @@
                     @foreach ($categorias as $categoria)
                         <!-- Si la categoria es igual a la categoria del $equipo entonces selected -->
                         <option @if ($categoria->id == $equipo->categoria_id) selected @endif
-                         value="{{ $categoria->id }}">{{ $categoria->nombre }}</option> 
+                        value="{{ $categoria->id }}">{{ $categoria->nombre }}</option> 
                     @endforeach
                 </select>
                 <br>
