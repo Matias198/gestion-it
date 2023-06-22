@@ -8,7 +8,8 @@
 </p>
 
 ## Para iniciar el proyecto se debe tener en cuenta:
-### Una base de datos postgres que cumpla los siguientes paramtros del .env:
+
+### Modificar el .env con los siguientes valores:
 
 - DB_CONNECTION=pgsql
 - DB_HOST=127.0.0.1
@@ -16,22 +17,37 @@
 - DB_DATABASE=diseñoweb
 - DB_USERNAME=admin
 - DB_PASSWORD=admin
-
-### Ejecutar la siguiente query en la base de datos:
-
-<code>INSERT INTO roles (id, name, permisos, created_at, updated_at)
-VALUES (1, 'Super Usuario', '["ADMINISTRAR_USUARIOS", "ADMINISTRAR_ROLES", "ADMINISTRAR_EQUIPOS", "ADMINISTRAR_SOLICITUDES", "GESTIONAR_SOLICITUDES", "SOLICITAR_EQUIPOS"]'::json, current_date, current_date);</code>
-
-<code> INTO users (id, name, email, password, role_id, created_at, updated_at) VALUES (1, 'Administrador', 'clave@12345678', '$2a$06$tVkuNV2RpD0eXZqWTLha9eVFzcXehdWbHpUVwPBeuHe8jnsmXUm.S', 1, '2023-06-19 01:21:00', '2023-06-19 01:58:38');</code>
+> Nota: se pueden cambiar estos parametros segun sus credenciales
 
 ### Node.js, PHP y Composer instalado en el sistema:
+- npm install
+- composer install
+
+> **Nota:** verificar que en el archivo php.ini se encuentren descomentados los siguientes parametros:
+> **extension=pdo_pgsql**
+> **extension=pgsql**
+
+### Utilizar el siguiente comando en la consola:
+- php artisan migrate
+> **Nota:** la base de datos debe estar creada con anterioridad.
+
+
+### Ejecutar las instrucciones para generar los roles, permisos y usuarios
+
+- php artisan db:seed --class=PermisosTableSeeder
+- php artisan db:seed --class=SuperusuarioSeeder
+> Nota: estos comandos crean los roles y permisos, junto al superusuario 
+
+
 #### Ejecutar los siguientes comandos:
 - npm run dev
 - php artisan serve
 
-### Dirigirse a la ruta localhost:8000/auth/login para iniciar sesion con los datos de superusuario
+### Dirigirse a la ruta 
 
-- correo: clave@12345678
+localhost:8000/auth/login 
+
+### Los datos del super usuario son
+
+- correo: super@usuario
 - clave: 12345678
-
-

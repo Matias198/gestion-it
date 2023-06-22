@@ -20,8 +20,7 @@
 </head>
 
 <body class="antialiased bg-slate-800">
-    <nav class="sticky top-0 z-50 w-full border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
-        style="box-shadow: 0 0 15px 5px rgba(0,0,0, 0.5);">
+    <nav class="sticky top-0 z-50 w-full border-b border-gray-700 dark:bg-gray-900">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
@@ -50,7 +49,7 @@
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    src="{{ asset('assets/img/perfil.jpg') }}"
                                     alt="user photo">
                             </button>
                         </div>
@@ -85,38 +84,38 @@
     </nav>
     <aside id="default-sidebar"
         class="border-r-2 border-gray-700 fixed top-14 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-        aria-label="sidebar" style="box-shadow: 0 0 15px 5px rgba(0,0,0, 0.5);">
-        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        aria-label="sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto dark:bg-gray-900">
             <ul class="space-y-2 font-medium">
-                @if(session('user')->hasRole((array) ['Administrador','Usuarios del Área de Sistemas'])) 
-                <li>
-                    <a href="{{ route('users.index') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z">
-                            </path>
-                        </svg>
-                        <span class="ml-3">Usuarios</span>
-                    </a>
-                </li>
+                @if (session('user')->hasRole((array) ['Administrador', 'Usuarios del Área de Sistemas']))
+                    <li>
+                        <a href="{{ route('users.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z">
+                                </path>
+                            </svg>
+                            <span class="ml-3">Usuarios</span>
+                        </a>
+                    </li>
                 @endif
-                @if(session('user')->hasRole((array) ['Administrador']))
-                <li>
-                    <a href="{{ route('roles.index') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z">
-                            </path>
-                        </svg>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Roles y Seguridad</span>
-                    </a>
-                </li>
+                @if (session('user')->hasRole((array) ['Administrador']))
+                    <li>
+                        <a href="{{ route('roles.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z">
+                                </path>
+                            </svg>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Roles y Seguridad</span>
+                        </a>
+                    </li>
                 @endif
                 <li>
                     <a href="{{ route('solicitud.index') }}"
@@ -129,10 +128,19 @@
                             </path>
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Solicitudes</span>
-                        <span
-                            class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+                        @if (session('user')->hasRole((array) ['Usuario Comun']))
+                            <span
+                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ 
+                                App\Models\Solicitud::all()->where('user_id', auth()->user()->id)->count()
+                                }}</span>
+                        @elseif(session('user')->hasRole((array) ['Administrador', 'Usuarios del Área de Sistemas']))
+                            <span
+                                class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ 
+                                App\Models\Solicitud::all()->where('estado', 'Pendiente')->count() 
+                                }}</span>
+                        @endif
                     </a>
-                </li> 
+                </li>
                 <li>
                     <a href="{{ route('equipos.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -146,40 +154,40 @@
 
                         <span class="flex-1 ml-3 whitespace-nowrap">Equipos</span>
                     </a>
-                </li> 
-                @if(session('user')->hasRole((array) ['Administrador','Usuarios del Área de Sistemas'])) 
-                <li>
-                    <a href="{{ route('categorias.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z">
-                        </path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
-                    </a>
                 </li>
-                <li>
-                    <a href="{{ route('componentes.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z">
-                        </path>
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Componentes</span>
-                    </a>
-                </li>
-                @endif 
+                @if (session('user')->hasRole((array) ['Administrador', 'Usuarios del Área de Sistemas']))
+                    <li>
+                        <a href="{{ route('categorias.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
+                            </svg>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('componentes.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z">
+                                </path>
+                            </svg>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Componentes</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </aside>
-    <div class="relative sm:ml-64">
+    <div class="relative sm:ml-64 p-5">
         @yield('content')
     </div>
 

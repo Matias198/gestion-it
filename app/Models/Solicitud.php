@@ -9,8 +9,15 @@ class Solicitud extends Model
 {
     use HasFactory;
 
+    protected $table = 'solicitud';
+
     public function equipo()
     {
-        return $this->belongsToMany(Equipo::class, 'equipo_solicitud');
+        return $this->belongsToMany(Equipo::class, 'solicitud_equipos');
+    }
+
+    public function usuarios()
+    {
+        return $this->hasMany(User::class);
     }
 }
