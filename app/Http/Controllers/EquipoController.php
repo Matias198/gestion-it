@@ -60,6 +60,7 @@ class EquipoController extends Controller
         $equipo = new Equipo();
         $equipo->nombre = $request->input('nombre');
         $equipo->descripcion = $request->descripcion;
+        $equipo->estado = 'Disponible';
         $equipo->categoria_id = $request->input('categoria_id');
         
 
@@ -119,6 +120,7 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         $equipo->nombre = $request->input('nombre');
         $equipo->descripcion = $request->descripcion;
+        $equipo->estado = $request->input('estado');
         $equipo->categoria_id = $request->input('categoria_id');
         
 

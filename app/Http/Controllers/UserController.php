@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 class UserController extends Controller
 {
     public function index()
-    {
+    { 
         // Obtener todos los usuarios
         $users = User::with('role')->get();
         $roles = Role::all(); 

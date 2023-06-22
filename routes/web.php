@@ -25,11 +25,16 @@ Route::get('/', [AuthController::class, 'index'])->name('auth.login');
 Route::get('/welcome', [Controller::class, 'index'])->name('layouts.welcome');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('users', UserController::class); 
-    Route::resource('roles', RoleController::class); 
-    Route::resource('equipos', EquipoController::class);
-    Route::resource('categorias', CategoriaController::class);
-    Route::resource('componentes', ComponentesController::class);
+    Route::resource('users', UserController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('roles', RoleController::class)->middleware('role:Administrador');
+    Route::resource('equipos', EquipoController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
+    Route::resource('categorias', CategoriaController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('componentes', ComponentesController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::resource('solicitud', SolicitudController::class)->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
+    Route::get('solicitar/{id}', [SolicitudController::class, 'solicitar'])->name('solicitud.solicitar')->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
+    Route::get('editar/{id}', [SolicitudController::class, 'editar'])->name('solicitud.editar')->middleware('role:Administrador|Usuarios del Área de Sistemas|Usuario Comun');
+    Route::get('aprobar/{id}', [SolicitudController::class, 'aprobar'])->name('solicitud.aprobar')->middleware('role:Administrador|Usuarios del Área de Sistemas');
+    Route::get('denegar/{id}', [SolicitudController::class, 'denegar'])->name('solicitud.denegar')->middleware('role:Administrador|Usuarios del Área de Sistemas');
 })
 ;
 Route::get('auth/login', [AuthController::class, 'index'])->name('auth.login');

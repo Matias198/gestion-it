@@ -24,6 +24,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             // El usuario ha iniciado sesión correctamente
             $user = Auth::user();
+            // Elimina si hay un usuario ya logeado
+            session(['user' => ""]);
             // Guardar los datos del usuario en la variable de sesión
             session(['user' => $user]);
 
@@ -57,7 +59,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
 
         // Buscar el rol "cliente" en la base de datos
-        $clienteRole = Role::where('name', 'Cliente')->first();
+        $clienteRole = Role::where('name', 'Usuario Comun')->first();
 
         // Asignar el rol al nuevo usuario
         $user->role_id = $clienteRole->id;
@@ -72,7 +74,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirigir al usuario a la página de inicio o a donde desees después del registro exitoso
-        return redirect()->route('/');
+        return redirect()->route('layouts.welcome');
     }
 
     public function logout()

@@ -20,9 +20,12 @@
                                 <th scope="col" class="px-6 py-3">Categoria</th>
                                 <th scope="col" class="px-6 py-3"style="max-width: 100px;">Tipo</th>
                                 <th scope="col" class="px-6 py-3">Componentes</th>
+                                <th scope="col" class="px-6 py-3">Estado</th>
                                 <!--<th scope="col" class="px-6 py-3">Motivo Baja</th>
-                                                <th scope="col" class="px-6 py-3">Fecha Baja</th>--> 
-                                <th scope="col" class="px-6 py-3" style="max-width: 100px;">Acciones</th> 
+                                                    <th scope="col" class="px-6 py-3">Fecha Baja</th>-->
+                                @if (session('user')->hasRole((array) ['Administrador', 'Usuario Comun']))
+                                    <th scope="col" class="px-6 py-3" style="max-width: 200px;">Acciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="abx acb">
@@ -40,15 +43,17 @@
                                             {{ $componente->nombre }}: {{ $componente->valor }}<br>
                                         @endforeach
                                     </td>
+                                    <td class="px-6 py-4" style="max-width: 100px;">{{ $equipo->estado }}</td>
                                     <!--<td class="px-6 py-4">{{ $equipo->motivo_baja }}</td>
-                                                    <td class="px-6 py-4">{{ $equipo->fecha_baja }}</td>-->
+                                                        <td class="px-6 py-4">{{ $equipo->fecha_baja }}</td>-->
                                     @if (session('user')->hasRole((array) ['Administrador']))
                                         <td class="px-6 py-4" style="max-width: 200px;">
-                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                 href="{{ route('equipos.edit', $equipo->id) }}">Editar</a>
+                                            <br>
                                             <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                 onclick="borrar({{ $equipo->id }})">Eliminar</button>
-                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500"
+                                            <a class="font-medium text-blue-600 dark:text-blue-500"
                                                 style="display:none">
                                                 <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST"
                                                     class="d-inline">
@@ -60,11 +65,13 @@
                                             </a>
                                         </td>
                                     @endif
-                                    @if (session('user')->hasRole((array)['Usuario Comun']))
-                                        <td class="px-6 py-4" style="max-width: 200px;">
-                                            <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                href="{{ route('solicitud.create', $equipo->id) }}">Solicitar</a>
-                                        </td>
+                                    @if (session('user')->hasRole((array) ['Usuario Comun']))
+                                        @if ($equipo->estado == 'Disponible')
+                                            <td class="px-6 py-4" style="max-width: 200px;">
+                                                <a class="px-3 mx-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                    href="{{ route('solicitud.solicitar', $equipo->id) }}">Solicitar</a>
+                                            </td>
+                                        @endif
                                     @endif
                                 </tr>
                             @endforeach
