@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>GestiónIT</title>
+    <link rel="icon" href="{{ asset('assets/img/favicon.svg') }}" type="image/x-icon" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -37,7 +38,7 @@
                     </button>
                     <a href="{{ route('layouts.welcome') }}" class="flex ml-2 md:mr-24">
                         <!--https://flowbite.com/docs/images/logo.svg -->    
-                    <img src="assets/img/Icono.svg" class="h-8 mr-3" alt="FlowBite Logo" />
+                    <img src="/assets/img/icono.svg" class="h-8 mr-3" alt="GestionIT Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">GestiónIT</span>
                     </a>
