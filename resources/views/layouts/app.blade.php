@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>GestiónIT</title>
+    <link rel="icon" href="{{ asset('assets/img/favicon.svg') }}" type="image/x-icon" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -36,7 +37,8 @@
                         </svg>
                     </button>
                     <a href="{{ route('layouts.welcome') }}" class="flex ml-2 md:mr-24">
-                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
+                        <!--https://flowbite.com/docs/images/logo.svg -->    
+                    <img src="/assets/img/icono.svg" class="h-8 mr-3" alt="GestionIT Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">GestiónIT</span>
                     </a>
@@ -182,9 +184,7 @@
             </ul>
         </div>
     </aside>
-    <div class="relative sm:ml-64 p-5" style="box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
-    -webkit-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
-    -moz-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset; height: 100vh;">
+    <div class="relative sm:ml-64 p-5">
         @yield('content')
     </div>
 

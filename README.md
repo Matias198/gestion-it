@@ -38,6 +38,10 @@
 - php artisan db:seed --class=SuperusuarioSeeder
 > Nota: estos comandos crean los roles y permisos, junto al superusuario 
 
+### Ejecutar las intrucciones para generar categorias, componentes y equipos
+- php artisan db:seed --class=CategoriasTableSeeder
+- php artisan db:seed --class=ComponentesTableSeeder
+- php artisan db:seed --class=EquiposTableSeeder
 
 #### Ejecutar los siguientes comandos:
 - npm run dev
