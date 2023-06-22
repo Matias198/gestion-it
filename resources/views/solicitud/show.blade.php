@@ -10,11 +10,11 @@
                 <input type="text" id="estado" name="estado"
                     class="cursor-default read-only:text-gray-100 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Ingrese un motivo" required value="{{ $solicitud->estado }}" readonly
-                    @if ($solicitud->estado == 'Aprobado') style="background-color: green"
+                    @if ($solicitud->estado == 'Aprobado') style="background-color: green; font-weight: bold"
                     @elseif($solicitud->estado == 'Denegado')
-                    style="background-color: red"
+                    style="background-color: red; font-weight: bold"
                     @else
-                    style="background-color: rgb(200,200,0)" @endif>
+                    style="background-color: rgb(255, 250, 00); color: black ; font-weight: bold" @endif>
             </div>
             @if ($solicitud->estado == 'Denegado')
                 <div class="mb-6">

@@ -182,9 +182,7 @@
             </ul>
         </div>
     </aside>
-    <div class="relative sm:ml-64 p-5" style="box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
-    -webkit-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset;
-    -moz-box-shadow: 9px 9px 22px 1px rgba(0,0,0,0.63) inset; height: 100vh;">
+    <div class="relative sm:ml-64 p-5">
         @yield('content')
     </div>
 
