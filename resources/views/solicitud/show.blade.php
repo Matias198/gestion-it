@@ -14,7 +14,7 @@
                     @elseif($solicitud->estado == 'Denegado')
                     style="background-color: red"
                     @else
-                    style="background-color: yellow" @endif>
+                    style="background-color: rgb(200,200,0)" @endif>
             </div>
             @if ($solicitud->estado == 'Denegado')
                 <div class="mb-6">
